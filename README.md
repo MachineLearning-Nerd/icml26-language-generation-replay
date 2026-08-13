@@ -1,41 +1,108 @@
-# Reproduction: Language Generation with Replay
+# ICML 2026 — Language Generation with Replay
 
-[![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/MachineLearning-Nerd/icml26-repro-scnRgI2hhX-language-generation-replay/blob/main/notebooks/replay_reproduction.py)
+Independent, claim-by-claim reproduction audit for [Language Generation with Replay: A Learning-Theoretic View of Model Collapse](https://arxiv.org/abs/2603.11784).
 
-This clean-room campaign tests all six universal theory claims in [arXiv:2603.11784](https://arxiv.org/abs/2603.11784). The previous live judge awarded **6/12** for finite toy checks. The candidate replaces those checks with symbolic proof certificates for arbitrary quantified variables, independent checkers, and mutation controls that must fail. All research computation ran on Hugging Face `cpu-upgrade` (64 logical CPUs reported, no GPU).
+| Field | Value |
+| --- | --- |
+| Paper | [arXiv:2603.11784](https://arxiv.org/abs/2603.11784) |
+| Authors | Giorgio Racca, Michal Valko, Amartya Sanyal |
+| ICML submission | `scnRgI2hhX` |
+| Repository | [MachineLearning-Nerd/icml26-language-generation-replay](https://github.com/MachineLearning-Nerd/icml26-language-generation-replay) |
+| Local evidence | Six source-anchored audits marked `VERIFIED` |
+| Historical live result | `6/12`; no new judge score is claimed here |
 
-Paper result: six generation/replay theorems. Observed result: all six exact claim contracts pass; seven independent proof routes and seven negative controls pass their expected outcomes. This is a **candidate forecast, not a new judge score**. The custom proof-certificate kernel is auditable Python, not a general proof assistant, which remains the main review risk.
+## What the paper studies
 
-- [Illustrated technical report](reports/replay-reproduction/report.md)
-- [Self-contained marimo tutorial](notebooks/replay_reproduction.py)
-- [Evaluator-visible evidence matrix](pages/visibility-matrix/page.md)
+The paper asks what happens when a language generator's earlier outputs can be
+replayed as future training examples. Its results compare uniform generation,
+non-uniform generation, generation in the limit, and proper generation with and
+without replay. The central message is asymmetric: replay preserves the
+strongest uniform guarantee, but can separate weaker generation notions and can
+make proper generation impossible.
 
-Run the fixed reproduction command:
+This repository audits the paper's exact constructions. The executable checks
+are finite or symbolic evidence for the proof mechanisms; the paper's proofs
+remain the authority for their universal quantifiers. A passing audit is not a
+claim that a finite run alone proves a universal theorem.
+
+## Claim-to-evidence ledger
+
+| Claim | Paper result and source anchor | How the result is produced here | Evidence and control | Status |
+| --- | --- | --- | --- | --- |
+| C1 | Uniform generation with replay has the same optimal sample complexity as ordinary uniform generation. Prompt Theorem 3.1; arXiv v2 Theorem 4.1, Algorithm 1. | `repro/src/c1_proof.py` executes the burn-in conversion and `c1_checker.py` independently checks its proof DAG. `ReplayCore.lean` checks the support-closure and same-threshold core. | Replay-tree audit; unsupported pre-burn-in outsider is a rejecting control. See `.openresearch/artifacts/claim_1/`. | `VERIFIED` |
+| C2 | A countable class separates non-uniform generation with and without replay. Prompt Theorem 4.1; arXiv v2 Theorem 5.1. | `c2_proof.py` keeps thresholds `d` and `m` symbolic, constructs the `h∞`/`h_d` adversarial trace, and proves the exact intersection obstruction. | `c2_checker.py` rechecks arbitrary-threshold obligations; removing replay or the finite upper bound is rejected. See `.openresearch/artifacts/claim_2/`. | `VERIFIED` |
+| C3 | Witness Protection generates every countable UUS class in the limit under replay using membership queries. Prompt Theorem 5.1; arXiv v2 Theorem 6.1, Algorithm 2. | `c3_proof.py` transcribes termination, eventual target criticality, witness protection, and fresh valid output; Lean checks reusable monotonicity and support cores. | Independent proof-DAG checker; allowing a protected witness to be output is rejected. See `.openresearch/artifacts/claim_3/`. | `VERIFIED` |
+| C4 | An uncountable class is limit-generatable without replay but not with replay. Prompt Theorem 5.6; arXiv v2 Theorem 6.6. | `c4_proof.py` follows the marker-stabilization and phase construction for every symbolic phase; Lean checks the diagonal and infinitely-often-error implications. | Six-phase construction audit plus independent all-phase checker; removing replayed markers is rejected. See `.openresearch/artifacts/claim_4/`. | `VERIFIED` |
+| C5 | No deterministic membership-query-only generator can properly generate every countable class in the limit. Prompt Theorem 6.1; arXiv v2 Theorem 7.1, Algorithm 3. | `c5_proof.py` audits the arbitrary-generator construction and its two exhaustive cases: infinitely many non-`h1` outputs or an eventual `h1` trap. | Independent lower-bound checker; removing the final trap is rejected. See `.openresearch/artifacts/claim_5/`. | `VERIFIED` |
+| C6 | A four-member class is properly generatable without replay but impossible to properly generate in the limit with replay. Prompt Theorem 6.3; arXiv v2 Theorem 7.3. | `c6_exact.py`, `c6_cell_solver.py`, and Lean exhaust all four first-output cases over exact half-line predicates and singleton exceptions. | Structural route, seven-cell route, and independent checker agree; removing replayed exceptions is rejected. See `.openresearch/artifacts/claim_6/`. | `VERIFIED` |
+
+## Reproduce the audit
+
+From `main`, the fixed entrypoint is:
 
 ```bash
-uv sync --frozen --no-dev && uv run --no-sync python repro/src/verify.py && uv run --no-sync python repro/src/publication_gate.py
+uv sync --frozen --no-dev && \
+  uv run --no-sync python repro/src/check_lean_certificate.py && \
+  uv run --no-sync python repro/src/verify.py && \
+  uv run --no-sync python repro/src/publication_gate.py
 ```
 
-## Experiment log
+The repository is deterministic, CPU-only, and uses no seeds, GPU, paid API,
+or finite-window inference for the reported symbolic mechanisms. The complete
+claim bundles contain the method, source audit, raw result, independent checker,
+negative control, command, and limitations files.
 
-The exact run command is invariant across the tree.
+Useful entry points:
 
-| Branch / experiment | Purpose or change | Exact run command | Assessment / outcome | Compute |
-| --- | --- | --- | --- | --- |
-| `main` | Publication surface | Not run as an experiment (publication surface) | Previous live artifact; presentation target | — |
-| [`orx/validated-finite-construction-baseline`](https://github.com/MachineLearning-Nerd/icml26-repro-scnRgI2hhX-language-generation-replay/tree/orx/validated-finite-construction-baseline) | Freeze judged finite baseline | `uv sync --frozen --no-dev && uv run --no-sync python repro/src/verify.py && uv run --no-sync python repro/src/publication_gate.py` | TOY baseline reproduced | HF `cpu-upgrade`, 64 CPUs, 21 s |
-| [`orx/claim-6-cumulative-proof-evidence`](https://github.com/MachineLearning-Nerd/icml26-repro-scnRgI2hhX-language-generation-replay/tree/orx/claim-6-cumulative-proof-evidence) | Exact all-integer Claim 6 certificate, two routes | `uv sync --frozen --no-dev && uv run --no-sync python repro/src/verify.py && uv run --no-sync python repro/src/publication_gate.py` | Candidate VERIFIED | HF `cpu-upgrade`, 64 CPUs, 21 s cumulative run |
-| [`orx/claim-1-exact-reduction-certificate`](https://github.com/MachineLearning-Nerd/icml26-repro-scnRgI2hhX-language-generation-replay/tree/orx/claim-1-exact-reduction-certificate) | Arbitrary-`d` replay reduction | `uv sync --frozen --no-dev && uv run --no-sync python repro/src/verify.py && uv run --no-sync python repro/src/publication_gate.py` | Candidate VERIFIED | HF `cpu-upgrade`, 64 CPUs, 21 s |
-| [`orx/claim-2-arbitrary-threshold-separation`](https://github.com/MachineLearning-Nerd/icml26-repro-scnRgI2hhX-language-generation-replay/tree/orx/claim-2-arbitrary-threshold-separation) | Symbolic threshold contradiction | `uv sync --frozen --no-dev && uv run --no-sync python repro/src/verify.py && uv run --no-sync python repro/src/publication_gate.py` | Candidate VERIFIED | HF `cpu-upgrade`, 64 CPUs, 21 s |
-| [`orx/claim-3-universal-witness-protection-proof`](https://github.com/MachineLearning-Nerd/icml26-repro-scnRgI2hhX-language-generation-replay/tree/orx/claim-3-universal-witness-protection-proof) | Universal Witness Protection obligations | `uv sync --frozen --no-dev && uv run --no-sync python repro/src/verify.py && uv run --no-sync python repro/src/publication_gate.py` | Candidate VERIFIED | HF `cpu-upgrade`, 64 CPUs, 21 s |
-| [`orx/claim-4-infinite-diagonalization-certificate`](https://github.com/MachineLearning-Nerd/icml26-repro-scnRgI2hhX-language-generation-replay/tree/orx/claim-4-infinite-diagonalization-certificate) | All-phase diagonalization | `uv sync --frozen --no-dev && uv run --no-sync python repro/src/verify.py && uv run --no-sync python repro/src/publication_gate.py` | Candidate VERIFIED | HF `cpu-upgrade`, 64 CPUs, 21 s |
-| [`orx/claim-5-universal-mq-lower-bound-certificate`](https://github.com/MachineLearning-Nerd/icml26-repro-scnRgI2hhX-language-generation-replay/tree/orx/claim-5-universal-mq-lower-bound-certificate) | Universal MQ lower-bound dichotomy | `uv sync --frozen --no-dev && uv run --no-sync python repro/src/verify.py && uv run --no-sync python repro/src/publication_gate.py` | Candidate VERIFIED | HF `cpu-upgrade`, 64 CPUs, 21 s |
-| [`orx/evaluator-visible-release-candidate`](https://github.com/MachineLearning-Nerd/icml26-repro-scnRgI2hhX-language-generation-replay/tree/orx/evaluator-visible-release-candidate) | Cumulative regression and publication gates | `uv sync --frozen --no-dev && uv run --no-sync python repro/src/verify.py && uv run --no-sync python repro/src/publication_gate.py` | Pending cumulative run | HF `cpu-upgrade`, estimated 1 core, <2 min |
+- [Current results](https://github.com/MachineLearning-Nerd/icml26-language-generation-replay/blob/main/RESULTS.md)
+- [Primary-source audit](https://github.com/MachineLearning-Nerd/icml26-language-generation-replay/blob/main/docs/SOURCE_AUDIT.md)
+- [Detailed reproduction report](https://github.com/MachineLearning-Nerd/icml26-language-generation-replay/blob/main/reports/replay-reproduction/report.md)
+- [Verifier](https://github.com/MachineLearning-Nerd/icml26-language-generation-replay/blob/main/repro/src/verify.py)
+- [Lean certificate](https://github.com/MachineLearning-Nerd/icml26-language-generation-replay/blob/main/repro/formal/ReplayCore.lean)
+- [Historical judge-facing report](https://github.com/MachineLearning-Nerd/icml26-language-generation-replay/blob/main/pages/historical-rejected-baseline/page.md)
 
-## Environment
+## Branch organization
 
-Python 3.12.11 and all inputs are pinned by `pyproject.toml`, `.python-version`, and `uv.lock`. The verifier is deterministic and uses no random seeds. The one repository-level `.venv` is reused; no claim uses a command-line knob or separate environment.
+`main` is the canonical, cumulative audit. The named branches preserve the
+research progression and are intentionally descriptive. The complete lineage
+and old-to-new mapping are in [`branch-audit.md`](https://github.com/MachineLearning-Nerd/icml26-language-generation-replay/blob/main/branch-audit.md).
 
-## Historical material
+| Branch family | Purpose |
+| --- | --- |
+| `audit/*` | One baseline or one claim-specific proof/evidence route. |
+| `integration/*` | Cumulative claim evidence assembled across routes. |
+| `release/*` | Evaluator-visible and Space/release checks. |
 
-The original finite construction audit is preserved in `RESULTS.md` and the historical logbook pages. It is not the current evidence for a universal theorem.
+The old `orx/*` names were implementation-stage labels. They are not part of
+the published branch interface.
+
+## Citation
+
+```bibtex
+@article{racca2026language,
+  title         = {Language Generation with Replay: A Learning-Theoretic View of Model Collapse},
+  author        = {Racca, Giorgio and Valko, Michal and Sanyal, Amartya},
+  journal       = {arXiv preprint arXiv:2603.11784},
+  year          = {2026},
+  doi           = {10.48550/arXiv.2603.11784}
+}
+```
+
+## Thank you
+
+Thank you to Giorgio Racca, Michal Valko, and Amartya Sanyal for making the
+paper, proof ideas, and source-level theorem structure available. That clarity
+made it possible to audit the replay constructions claim by claim and to keep
+the evidence boundaries explicit.
+
+This repository is an independent reproduction audit maintained by
+**MachineLearning-Nerd**. It is not the authors' official implementation and
+does not imply author endorsement.
+
+## Attribution and scope
+
+The paper, theorem statements, and research contribution belong to the cited
+authors. The scripts, certificates, evidence packaging, branch cleanup, and
+documentation in this repository are the independent work of
+**MachineLearning-Nerd**. The historical `6/12` is retained for transparency;
+only a future external judge can change it.
