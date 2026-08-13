@@ -16,7 +16,7 @@ def _(mo):
     mo.md(r"""
     # Language generation with replay: an evidence-first tutorial
 
-    ![Headline evidence](https://raw.githubusercontent.com/MachineLearning-Nerd/icml26-repro-scnRgI2hhX-language-generation-replay/main/reports/replay-reproduction/images/headline.svg)
+    ![Headline evidence](https://raw.githubusercontent.com/MachineLearning-Nerd/icml26-language-generation-replay/main/reports/replay-reproduction/images/headline.svg)
 
     The live judge score is **6/12**. The candidate evidence verifies all six exact claim contracts,
     but that is a forecast—not a new judge result. This notebook embeds the observed evidence, so
@@ -62,7 +62,7 @@ def _(mo):
     all future prefixes. Claim 1 prevents this with a safe burn-in; Claims 2, 4, and 6 exploit replay
     to build adversarial prefixes; Claims 3 and 5 isolate what membership queries can and cannot do.
 
-    ![Mechanism map](https://raw.githubusercontent.com/MachineLearning-Nerd/icml26-repro-scnRgI2hhX-language-generation-replay/main/reports/replay-reproduction/images/claim-map.svg)
+    ![Mechanism map](https://raw.githubusercontent.com/MachineLearning-Nerd/icml26-language-generation-replay/main/reports/replay-reproduction/images/claim-map.svg)
     """)
     return
 
@@ -72,7 +72,7 @@ def _(mo):
     mo.md(r"""
     ## How to audit the evidence
 
-    Start at the [evaluator-visible matrix](https://github.com/MachineLearning-Nerd/icml26-repro-scnRgI2hhX-language-generation-replay/blob/main/.trackio/logbook/pages/visibility-matrix/page.md).
+    Start at the [evaluator-visible matrix](https://github.com/MachineLearning-Nerd/icml26-language-generation-replay/blob/main/.trackio/logbook/pages/visibility-matrix/page.md).
     For each claim, compare the source audit and claim contract, inspect the raw JSON and proof DAG,
     run the independent checker, then confirm that the mutated premise exits nonzero.
 

@@ -1,30 +1,40 @@
 # Results
 
-`python3 repro/src/verify.py` passes all six source-anchored claims using only
-the Python standard library. The detailed, machine-readable traces are in
-[`outputs/verdict.json`](outputs/verdict.json).
+This repository audits [Language Generation with Replay: A Learning-Theoretic
+View of Model Collapse](https://arxiv.org/abs/2603.11784) by Giorgio Racca,
+Michal Valko, and Amartya Sanyal. The six claim bundles are marked
+`VERIFIED` by the committed source-anchored audits and independent controls.
 
-| Claim | Source construction | Independent executable evidence | Negative control |
-|---|---|---|---|
-| C1 | Theorem 3.1, Algorithm 1 | Exhaustive replay-tree audit across the burn-in boundary | Calling the base generator before burn-in lets an outsider be replayed forever |
-| C2 | Theorem 4.1 | `h_infty`/`h_d` adversarial traces for twelve thresholds | The shared trace is invalid for `h_d` without replay |
-| C3 | Theorem 5.1, Witness Protection | Direct transcription of sure sets, criticality, witnesses, and output rule | Emitting a protected witness prevents its later observation from becoming sure |
-| C4 | Theorem 5.6 | Six symbolic adversarial phases for the padded `H_2^z` construction | The pivotal marker is illegal in the alternative target without replay |
-| C5 | Theorem 6.1, Algorithm 3 | Both diagonalization and eventual-`h1` trap cases | Removing the trap removes the overgeneralization argument |
-| C6 | Theorem 6.3 | All four possible first proper outputs and the exact support intersections | Without the exceptional replayed examples, the common adversarial sequence is illegal |
+| Claim | Paper construction | Executable evidence | Rejecting control |
+| --- | --- | --- | --- |
+| C1 | Prompt Theorem 3.1; arXiv v2 Theorem 4.1, Algorithm 1 | Exhaustive replay-tree audit of the burn-in conversion plus Lean support-closure core | Unsupported pre-burn-in outsider can be replayed forever |
+| C2 | Prompt Theorem 4.1; arXiv v2 Theorem 5.1 | Symbolic `h∞`/`h_d` trace with arbitrary thresholds and exact support intersection | Shared trace is illegal for `h_d` without replay; removing the finite bound breaks the exact obstruction |
+| C3 | Prompt Theorem 5.1; arXiv v2 Theorem 6.1, Algorithm 2 | Witness Protection transcription, proof-DAG checker, and checked criticality/validity cores | Emitting a protected witness prevents the required eviction |
+| C4 | Prompt Theorem 5.6; arXiv v2 Theorem 6.6 | Marker stabilization and source-faithful phase audit with Lean diagonalization core | Removing marker replay makes the alternative history illegal |
+| C5 | Prompt Theorem 6.1; arXiv v2 Theorem 7.1, Algorithm 3 | Arbitrary-generator two-case diagonalization audit and independent checker | Removing the final trap removes the eventual-error branch |
+| C6 | Prompt Theorem 6.3; arXiv v2 Theorem 7.3 | Exact half-line, seven-cell, Lean, and independent four-way first-output routes | Removing replayed exceptions invalidates the common adversarial sequence |
 
-## Scope
+## Interpretation
 
-These are not proxy empirical experiments. They are executable audits of the
-complete constructions used by this theory paper: the finite class in C6 is
-exhausted, and C1--C5 execute the stated algorithm/proof transitions with the
-author-provided unbounded constructions. No finite computation is represented
-as a proof of a universally quantified theorem; the primary-source proof is
-the authority for those quantifiers.
+These are proof-level construction audits, not proxy empirical experiments. The
+finite executions and symbolic certificates check the stated mechanisms and
+controls; the paper's proof supplies the full universal quantifiers. Claim 6
+is additionally reconstructed over exact integer predicates rather than the
+historical `[-40,40]` window.
+
+The external/judged result remains **6/12** until a judge evaluates a newly
+published revision. This repository makes no new score claim.
 
 ## Re-run
 
 ```bash
-python3 repro/src/verify.py
-python3 -m json.tool outputs/verdict.json
+uv sync --frozen --no-dev && \
+  uv run --no-sync python repro/src/check_lean_certificate.py && \
+  uv run --no-sync python repro/src/verify.py && \
+  uv run --no-sync python repro/src/publication_gate.py
 ```
+
+See [docs/SOURCE_AUDIT.md](docs/SOURCE_AUDIT.md),
+[reports/replay-reproduction/report.md](reports/replay-reproduction/report.md),
+and the per-claim directories under `.openresearch/artifacts/` for the exact
+source labels, commands, raw outputs, checkers, controls, and limitations.

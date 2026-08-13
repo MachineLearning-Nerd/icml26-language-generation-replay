@@ -53,6 +53,6 @@ Direct evidence: [Lean source](https://huggingface.co/spaces/DineshAI/scnRgI2hhX
 [raw result](https://huggingface.co/spaces/DineshAI/scnRgI2hhX/blob/main/.openresearch/artifacts/claim_1/raw_result.json),
 [source audit](https://huggingface.co/spaces/DineshAI/scnRgI2hhX/blob/main/.openresearch/artifacts/claim_1/source_audit.md),
 [ar5iv paper](https://ar5iv.labs.arxiv.org/html/2603.11784), and
-[GitHub repository](https://github.com/MachineLearning-Nerd/icml26-repro-scnRgI2hhX-language-generation-replay).
+[GitHub repository](https://github.com/MachineLearning-Nerd/icml26-language-generation-replay).
 
 Deterministic local CPU; no seeds, GPU, paid job, or finite-window inference.

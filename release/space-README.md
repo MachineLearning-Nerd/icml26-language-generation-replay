@@ -15,9 +15,9 @@ tags:
  - replay
 ---
 
-# Repro - Language Generation with Replay
+# Repro — Language Generation with Replay
 
-An open experiment logbook, published with [Trackio](https://github.com/gradio-app/trackio).
+An open experiment logbook for [Language Generation with Replay: A Learning-Theoretic View of Model Collapse](https://arxiv.org/abs/2603.11784) by Giorgio Racca, Michal Valko, and Amartya Sanyal, published with [Trackio](https://github.com/gradio-app/trackio).
 
 ## Current candidate evidence
 
@@ -30,3 +30,18 @@ The live judged score remains **6/12**. Six source-anchored proof audits now exp
 - [Inspect the self-contained marimo notebook](notebooks/replay_reproduction.py)
 
 The new Lean route ran on local CPU; the retained Python evidence ran on Hugging Face `cpu-upgrade`. No GPU was used. Historical evidence remains preserved and is explicitly labeled **Historical rejected baseline**.
+
+## Citation
+
+```bibtex
+@article{racca2026language,
+  title         = {Language Generation with Replay: A Learning-Theoretic View of Model Collapse},
+  author        = {Racca, Giorgio and Valko, Michal and Sanyal, Amartya},
+  journal       = {arXiv preprint arXiv:2603.11784},
+  year          = {2026},
+  doi           = {10.48550/arXiv.2603.11784}
+}
+```
+
+Thank you to the authors for making the theorem structure and source available
+for independent, claim-by-claim auditing.

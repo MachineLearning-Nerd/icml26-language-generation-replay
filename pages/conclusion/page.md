@@ -18,7 +18,6 @@ file/route comparison, and exact revision download all pass. The retained live
 score is **6/12** until then and remains **6/12 awaiting judge** after publication.
 
 Direct resources: [Hugging Face Space](https://huggingface.co/spaces/DineshAI/scnRgI2hhX),
-[GitHub repository](https://github.com/MachineLearning-Nerd/icml26-repro-scnRgI2hhX-language-generation-replay),
+[GitHub repository](https://github.com/MachineLearning-Nerd/icml26-language-generation-replay),
 [ar5iv v1 rendering](https://ar5iv.labs.arxiv.org/html/2603.11784), and
 [current arXiv v2](https://arxiv.org/html/2603.11784v2).
-

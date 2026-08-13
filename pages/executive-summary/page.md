@@ -35,7 +35,7 @@ Evidence: [Lean source](https://huggingface.co/spaces/DineshAI/scnRgI2hhX/blob/m
 [certificate result](https://huggingface.co/spaces/DineshAI/scnRgI2hhX/blob/main/.openresearch/artifacts/formal/lean_certificate.json),
 [cumulative result](https://huggingface.co/spaces/DineshAI/scnRgI2hhX/blob/main/outputs/verdict.json),
 [source audit](https://huggingface.co/spaces/DineshAI/scnRgI2hhX/blob/main/docs/SOURCE_AUDIT.md), and
-[public GitHub repository](https://github.com/MachineLearning-Nerd/icml26-repro-scnRgI2hhX-language-generation-replay).
+[public GitHub repository](https://github.com/MachineLearning-Nerd/icml26-language-generation-replay).
 
 The live judged score remains **6/12** until the live judge evaluates a newly
 published revision. No blind-review score or candidate label is banked credit.
@@ -46,4 +46,3 @@ published revision. No blind-review score or candidate label is banked credit.
 -->
 
 <iframe src="poster_embed.html" title="Language generation with replay proof-audit poster" style="width:100%;height:680px;border:0"></iframe>
-
