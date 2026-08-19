@@ -13,7 +13,7 @@ EXPECTED_STATUS = (
     "ALL_SIX_CLAIMS_VERIFIED_SCOPED_LEAN_AND_EXACT_AUDITS_HISTORICAL_SCORE_6_OF_12_NO_CURRENT_SCORE"
 )
 EXPECTED_BRANCHES = 12
-EXPECTED_COMMITS = 29
+EXPECTED_COMMITS = 30
 CANONICAL_IDENTITY = "MachineLearning-Nerd <MachineLearning-Nerd@users.noreply.github.com>"
 CLAIM_IDS = ["C1", "C2", "C3", "C4", "C5", "C6"]
 
@@ -35,6 +35,18 @@ def git(*args: str) -> str:
 def require(condition: bool, message: str) -> None:
     if not condition:
         raise SystemExit(f"verification failed: {message}")
+
+
+def published_branches() -> list[str]:
+    remote = git("for-each-ref", "refs/remotes/origin", "--format=%(refname:short)").splitlines()
+    remote = [
+        name.removeprefix("origin/")
+        for name in remote
+        if name.startswith("origin/") and name != "origin/HEAD"
+    ]
+    if remote:
+        return remote
+    return git("for-each-ref", "refs/heads", "--format=%(refname:short)").splitlines()
 
 
 def main() -> None:
@@ -79,7 +91,7 @@ def main() -> None:
     require(verdicts["publication"]["author_endorsement_claimed"] is False, "author endorsement state")
     require(gate["publication_gate_passed"] is True and gate["claim_count"] == 6, "local publication gate")
 
-    branches = git("for-each-ref", "refs/heads", "--format=%(refname:short)").splitlines()
+    branches = published_branches()
     require(len(branches) == EXPECTED_BRANCHES, "branch count")
     require("main" in branches, "main branch")
     require(not any(branch.startswith("orx/") for branch in branches), "legacy orx branch")
