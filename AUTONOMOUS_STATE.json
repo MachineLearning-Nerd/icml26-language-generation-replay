@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "paper": "Language Generation with Replay: A Learning-Theoretic View of Model Collapse",
+  "arxiv": "2603.11784",
+  "submission": "scnRgI2hhX",
+  "phase": "scoped_six_claim_audit_complete_waiting_for_live_evaluator",
+  "overall_status": "ALL_SIX_CLAIMS_VERIFIED_SCOPED_LEAN_AND_EXACT_AUDITS_HISTORICAL_SCORE_6_OF_12_NO_CURRENT_SCORE",
+  "next_action": "Retain the reproducible evidence package and wait for a fresh external evaluator result; do not increase the score from local evidence.",
+  "current_score_claim": false,
+  "publication_allowed": false,
+  "author_endorsement_claimed": false,
+  "formal_core": {
+    "lean_version": "4.32.0",
+    "theorem_statements_checked": 27,
+    "premise_changing_mutations_rejected": 2,
+    "certificate_sha256": "b15a2652b1513bc30897b64b27a64e5009c8e3640836dc24a45fe8c539d67fd3"
+  },
+  "historical_external_result": {
+    "live_judge_score": "6/12",
+    "current_score": false,
+    "candidate": "DineshAI/scnRgI2hhX",
+    "publication_gate_passed": true,
+    "fresh_evaluator_pending": true
+  },
+  "source_hashes": {
+    "tex_sha256": "1014bb49b0b75137488266a641fa179fcd2885c6ea4217501c9e7683758cb1c4",
+    "html_sha256": "b3220f5cfa110088b01df476f2fdd366fbe6e5088507be9a1f15cfe1c9ebba2b"
+  },
+  "repository": {
+    "owner": "MachineLearning-Nerd",
+    "canonical_email": "MachineLearning-Nerd@users.noreply.github.com",
+    "github": "https://github.com/MachineLearning-Nerd/icml26-language-generation-replay",
+    "recovery_bundle_sha256": "50da13d999d93b9fc651441f1cf260717b6eff18aeea9bd9fc49b1ff7f64fcf0"
+  }
+}

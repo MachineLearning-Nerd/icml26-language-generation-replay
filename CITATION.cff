@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+message: "If you use this reproduction or audit, please cite this repository and the original paper."
+type: software
+title: "Independent audit of Language Generation with Replay"
+version: "1.0.0"
+date-released: 2026-08-19
+authors:
+  - name: MachineLearning-Nerd
+repository-code: "https://github.com/MachineLearning-Nerd/icml26-language-generation-replay"
+url: "https://github.com/MachineLearning-Nerd/icml26-language-generation-replay"
+abstract: "Lean and exact construction audit of Language Generation with Replay: A Learning-Theoretic View of Model Collapse."
+keywords:
+  - model collapse
+  - replay
+  - learning theory
+  - membership queries
+  - Lean 4
+  - reproduction
+preferred-citation:
+  type: article
+  title: "Language Generation with Replay: A Learning-Theoretic View of Model Collapse"
+  authors:
+    - family-names: Racca
+      given-names: Giorgio
+    - family-names: Valko
+      given-names: Michal
+    - family-names: Sanyal
+      given-names: Amartya
+  year: 2026
+  url: "https://arxiv.org/abs/2603.11784"

@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "paper": {
+    "title": "Language Generation with Replay: A Learning-Theoretic View of Model Collapse",
+    "arxiv": "2603.11784",
+    "submission": "scnRgI2hhX",
+    "source_version": "arXiv v2",
+    "authors": ["Giorgio Racca", "Michal Valko", "Amartya Sanyal"]
+  },
+  "overall_status": "ALL_SIX_CLAIMS_VERIFIED_SCOPED_LEAN_AND_EXACT_AUDITS_HISTORICAL_SCORE_6_OF_12_NO_CURRENT_SCORE",
+  "claims": [
+    {
+      "id": "C1",
+      "name": "uniform_replay_equivalence",
+      "status": "VERIFIED_SCOPED",
+      "paper_anchor": "Prompt Theorem 3.1; arXiv v2 Theorem 4.1 and Algorithm 1",
+      "production": ["repro/src/c1_proof.py", "repro/src/c1_checker.py", ".openresearch/artifacts/claim_1/raw_result.json"],
+      "controls": ["unsupported pre-burn-in outsider replay is rejected"],
+      "scope": "Finite exhaustive replay-tree instances audit the exact burn-in conversion; the paper proof supplies the universal implication."
+    },
+    {
+      "id": "C2",
+      "name": "countable_nonuniform_separation",
+      "status": "VERIFIED_SCOPED",
+      "paper_anchor": "Prompt Theorem 4.1; arXiv v2 Theorem 5.1",
+      "production": ["repro/src/c2_proof.py", "repro/src/c2_checker.py", ".openresearch/artifacts/claim_2/raw_result.json"],
+      "controls": ["removing replay or the finite upper bound is rejected"],
+      "scope": "The symbolic contradiction is instantiated over twelve thresholds; the source construction covers arbitrary thresholds."
+    },
+    {
+      "id": "C3",
+      "name": "witness_protection_limit_generation",
+      "status": "VERIFIED_SCOPED",
+      "paper_anchor": "Prompt Theorem 5.1; arXiv v2 Theorem 6.1 and Algorithm 2",
+      "production": ["repro/src/c3_proof.py", "repro/src/c3_checker.py", ".openresearch/artifacts/claim_3/raw_result.json"],
+      "controls": ["allowing a protected witness to be output is rejected"],
+      "scope": "Termination, target criticality, witness protection, and fresh valid output are audited against the public construction."
+    },
+    {
+      "id": "C4",
+      "name": "uncountable_replay_separation",
+      "status": "VERIFIED_SCOPED",
+      "paper_anchor": "Prompt Theorem 5.6; arXiv v2 Theorem 6.6",
+      "production": ["repro/src/c4_proof.py", "repro/src/c4_checker.py", ".openresearch/artifacts/claim_4/raw_result.json"],
+      "controls": ["removing replayed markers is rejected"],
+      "scope": "The marker-stabilization and phase construction are audited across six symbolic phases; the source proof supplies the universal diagonalization."
+    },
+    {
+      "id": "C5",
+      "name": "membership_query_proper_lower_bound",
+      "status": "VERIFIED_SCOPED",
+      "paper_anchor": "Prompt Theorem 6.1; arXiv v2 Theorem 7.1 and Algorithm 3",
+      "production": ["repro/src/c5_proof.py", "repro/src/c5_checker.py", ".openresearch/artifacts/claim_5/raw_result.json"],
+      "controls": ["removing the final trap is rejected"],
+      "scope": "The arbitrary-generator construction and its two exhaustive cases are audited; the paper proof supplies the general lower bound."
+    },
+    {
+      "id": "C6",
+      "name": "four_member_proper_generation_obstruction",
+      "status": "VERIFIED_SCOPED",
+      "paper_anchor": "Prompt Theorem 6.3; arXiv v2 Theorem 7.3",
+      "production": ["repro/src/c6_exact.py", "repro/src/c6_cell_solver.py", ".openresearch/artifacts/claim_6/raw_result.json"],
+      "controls": ["removing replayed exceptions is rejected"],
+      "scope": "Structural, seven-cell, and Lean routes exhaust the four first-output cases over exact predicates; this supports rather than replaces the source proof."
+    }
+  ]
+}

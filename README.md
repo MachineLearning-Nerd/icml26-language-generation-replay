@@ -11,6 +11,14 @@ Independent, claim-by-claim reproduction audit for [Language Generation with Rep
 | Local evidence | Six source-anchored audits marked `VERIFIED` |
 | Historical live result | `6/12`; no new judge score is claimed here |
 
+## Audit record
+
+- Overall status: `ALL_SIX_CLAIMS_VERIFIED_SCOPED_LEAN_AND_EXACT_AUDITS_HISTORICAL_SCORE_6_OF_12_NO_CURRENT_SCORE`
+- Scope: six source-anchored theorem/construction audits with Lean-checked reusable cores and independent controls
+- Current score claim: none; `6/12` is historical external context only
+- Publication gate: passed; author endorsement: not claimed
+- Standard audit surfaces: [CLAIM_EVIDENCE.md](CLAIM_EVIDENCE.md), [REPORT.md](REPORT.md), [STATUS.md](STATUS.md), [SOURCE_AUDIT.md](SOURCE_AUDIT.md), and [verify_final.py](verify_final.py)
+
 ## What the paper studies
 
 The paper asks what happens when a language generator's earlier outputs can be
@@ -74,7 +82,8 @@ and old-to-new mapping are in [`branch-audit.md`](https://github.com/MachineLear
 | `release/*` | Evaluator-visible and Space/release checks. |
 
 The old `orx/*` names were implementation-stage labels. They are not part of
-the published branch interface.
+the published branch interface. There are 12 clean branches including `main`,
+and all reachable commits are attributed to `MachineLearning-Nerd`.
 
 ## Citation
 

@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "paper": "scnRgI2hhX",
+  "arxiv": "2603.11784",
+  "source_scope": "arXiv v2 source anchors cross-checked against the ICML submission numbering",
+  "overall_verdict": "PASS_SIX_CLAIM_RELEASE_GATE",
+  "claim_statuses": {
+    "C1": "VERIFIED_SCOPED",
+    "C2": "VERIFIED_SCOPED",
+    "C3": "VERIFIED_SCOPED",
+    "C4": "VERIFIED_SCOPED",
+    "C5": "VERIFIED_SCOPED",
+    "C6": "VERIFIED_SCOPED"
+  },
+  "formal_core": {
+    "certificate": "repro/formal/ReplayCore.lean",
+    "lean_version": "4.32.0",
+    "certificate_sha256": "b15a2652b1513bc30897b64b27a64e5009c8e3640836dc24a45fe8c539d67fd3",
+    "theorem_statements_checked": 27,
+    "premise_changing_mutations_rejected": 2,
+    "project_declared_axioms": 0
+  },
+  "external_results": {
+    "historical_live_score": "6/12",
+    "current_score_claim": false,
+    "candidate": "DineshAI/scnRgI2hhX",
+    "candidate_publication_gate_passed": true,
+    "candidate_awaits_fresh_evaluator": true
+  },
+  "publication": {
+    "publication_allowed": false,
+    "author_endorsement_claimed": false
+  },
+  "boundary": "Finite or symbolic execution audits exact construction mechanisms and reusable cores; they do not replace the paper proofs or justify universal claims from a finite trace alone."
+}
